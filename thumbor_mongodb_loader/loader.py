@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license
-from tornado.concurrent import return_future
+from tornado.concurrent import gen
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 import gridfs
@@ -22,8 +22,8 @@ def __conn__(self):
     db = client[self.config.MONGO_ORIGIN_SERVER_DB]
     return db
 
-@return_future
-def load(self, path, callback):
+@gen.coroutine
+def load(self, path):
     db = __conn__(self)
     words2 = path.split("/")
     storage = self.config.MONGO_ORIGIN_SERVER_COLLECTION
@@ -40,4 +40,4 @@ def load(self, path, callback):
     else:
         result.error = LoaderResult.ERROR_NOT_FOUND
         result.successful = False
-    callback(result)
+   raise gen.Return(result)
