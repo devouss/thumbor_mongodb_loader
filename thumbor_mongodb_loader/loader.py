@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license
-from tornado.concurrent import gen
+from tornado import gen
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 import gridfs
