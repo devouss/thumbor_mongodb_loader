@@ -40,4 +40,4 @@ def load(self, path):
     else:
         result.error = LoaderResult.ERROR_NOT_FOUND
         result.successful = False
-   raise gen.Return(self._message)
+    raise gen.Return(result)
