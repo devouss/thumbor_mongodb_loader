@@ -11,9 +11,9 @@ from thumbor.loaders import LoaderResult
 
 def __conn__(self):
     the_database = self.config.MONGO_ORIGIN_SERVER_DB
-    if urllib.quote_plus(self.config.MONGO_ORIGIN_SERVER_USER):
-        password = urllib.quote_plus(self.config.MONGO_ORIGIN_SERVER_PASSWORD)
-        user = urllib.quote_plus(self.config.MONGO_ORIGIN_SERVER_USER)
+    if urllib.parse.quote_plus(self.config.MONGO_ORIGIN_SERVER_USER):
+        password = urllib.parse.quote_plus(self.config.MONGO_ORIGIN_SERVER_PASSWORD)
+        user = urllib.parse.quote_plus(self.config.MONGO_ORIGIN_SERVER_USER)
         uri = 'mongodb://'+ user +':' + password + '@' + self.config.MONGO_ORIGIN_SERVER_HOST + '/?authSource=' + self.config.MONGO_ORIGIN_SERVER_DB
     else:
         uri = 'mongodb://'+ self.config.MONGO_ORIGIN_SERVER_HOST
