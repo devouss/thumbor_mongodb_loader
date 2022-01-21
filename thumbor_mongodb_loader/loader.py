@@ -10,6 +10,7 @@ import urllib
 from thumbor.loaders import LoaderResult
 
 def __conn__(self):
+    logging.debug('1')
     the_database = self.config.MONGO_ORIGIN_SERVER_DB
     if urllib.parse.quote_plus(self.config.MONGO_ORIGIN_SERVER_USER):
         password = urllib.parse.quote_plus(self.config.MONGO_ORIGIN_SERVER_PASSWORD)
@@ -20,15 +21,18 @@ def __conn__(self):
     client = MongoClient(uri)
     #database
     db = client[self.config.MONGO_ORIGIN_SERVER_DB]
+    logging.debug(db)
     return db
 
 @gen.coroutine
 def load(self, path):
+    logging.debug('2')
     db = __conn__(self)
     words2 = path.split("/")
     storage = self.config.MONGO_ORIGIN_SERVER_COLLECTION
     images = gridfs.GridFS(db, collection=storage)
     result = LoaderResult()
+    logging.debug(words2)
     if ObjectId.is_valid(words2[0]):
         if images.exists(ObjectId(words2[0])):
             contents = images.get(ObjectId(words2[0])).read()
