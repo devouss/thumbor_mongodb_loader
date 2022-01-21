@@ -34,20 +34,26 @@ def load(self, path):
     images = gridfs.GridFS(db, collection=storage)
     result = LoaderResult()
     logging.warning(words2)
-    logging.warning('2222222222222222222222')
-    if images.exists(ObjectId(words2[0])):
-        logging.warning('===========')
-        logging.warning('ObjectId(words2[0])========>  ', ObjectId(words2[0]))
-        logging.warning('--------------------')
-        contents = images.get(ObjectId(words2[0])).read()
-        logging.warning('contents heeeererre ')
-        result.successful = True
-        logging.warning('result.successful True=++++++=> ', result.successful)
-        result.buffer = contents
-        logging.warning('contents  ', contents)
+    if ObjectId.is_valid(words2[0]):
+        logging.warning('2222222222222222222222')
+        if images.exists(ObjectId(words2[0])):
+            logging.warning('===========')
+            logging.warning('ObjectId(words2[0])========>  ', ObjectId(words2[0]))
+            logging.warning('--------------------')
+            contents = images.get(ObjectId(words2[0])).read()
+            logging.warning('contents heeeererre ')
+            result.successful = True
+            logging.warning('result.successful True=++++++=> ', result.successful)
+            result.buffer = contents
+            logging.warning('contents  ', contents)
+        else:
+            logging.warning('333333333333')
+            result.error = LoaderResult.ERROR_NOT_FOUND
+            result.successful = False
+            logging.warning('result.successful False=++++++=> ', result.successful)
     else:
-        logging.warning('333333333333')
+        logging.warning('101010101010')
         result.error = LoaderResult.ERROR_NOT_FOUND
         result.successful = False
-        logging.warning('result.successful False=++++++=> ', result.successful)
+        logging.warning('result.successful =++++++=> ', result.successful)
     raise gen.Return(result)
