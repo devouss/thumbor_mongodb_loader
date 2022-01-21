@@ -7,6 +7,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 import gridfs
 import urllib
+import logging
 from thumbor.loaders import LoaderResult
 
 def __conn__(self):
