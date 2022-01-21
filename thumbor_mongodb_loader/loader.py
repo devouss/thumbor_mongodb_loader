@@ -36,13 +36,17 @@ def load(self, path):
     logging.warning(words2)
     if ObjectId.is_valid(words2[0]):
         if images.exists(ObjectId(words2[0])):
+            logging.warning('ObjectId(words2[0])========>  ', ObjectId(words2[0]))
             contents = images.get(ObjectId(words2[0])).read()
+            logging.warning('contents heeeererre ')
             result.successful = True
             result.buffer = contents
+            logging.warning('contents  ', contents)
         else:
             result.error = LoaderResult.ERROR_NOT_FOUND
             result.successful = False
     else:
         result.error = LoaderResult.ERROR_NOT_FOUND
         result.successful = False
+    logging.warning('result.successful =++++++=> ', result.successful)
     raise gen.Return(result)
